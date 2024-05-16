@@ -1,0 +1,36 @@
+{
+    "carousels": {
+      "Screen1": [
+        { "id": 2, "source": "URL_da_Imagem" },
+        { "id": 1, "source": "URL_da_Imagem" },
+        { "id": 3, "source": "URL_da_Imagem" }
+      ],
+      "Screen2": [
+        { "id": 1, "source": "URL_da_Imagem" },
+        { "id": 2, "source": "URL_da_Imagem" }
+      ],
+      "Screen3": [
+        { "id": 1, "source": "URL_da_Imagem" },
+        { "id": 2, "source": "URL_da_Imagem" }
+      ],
+      "Screen4": [
+        { "id": 1, "source": "URL_da_Imagem" },
+        { "id": 2, "source": "URL_da_Imagem" },
+        { "id": 3, "source": "URL_da_Imagem" }
+      ]
+    },
+    "titles": {
+      "Screen1": "Shopping ParkCity",
+      "Screen2": "Chapéu Brasil",
+      "Screen3": "Jack Club Bar",
+      "Screen4": "Estância Árvore da Vida"
+    },
+    "descriptions": {
+      "Screen1": "Descrição da tela 1",
+      "Screen2": "Descrição da tela 2",
+      "Screen3": "Descrição da tela 3",
+      "Screen4": "Descrição da tela 4"
+    },
+    "searchableTitles": ["Shopping ParkCity", "Chapéu Brasil", "Jack Club Bar", "Estância Árvore da Vida"]
+  }
+  
