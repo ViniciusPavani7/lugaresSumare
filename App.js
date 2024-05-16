@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Image, TextInput, ScrollView, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import data from './API_NODEJS_0705/data.json';
 
 // Imagens para os carrosséis
 const carousels = {
@@ -25,10 +26,20 @@ const carousels = {
 };
 
 function HomeScreen({ navigation }) {
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState(Object.keys(carousels));
+
+  useEffect(() => {
+    // Filtrar as chaves do objeto carousels com base no texto de pesquisa
+    const results = Object.keys(carousels).filter(screen =>
+      data.titles[screen].toLowerCase().includes(searchText.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchText]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {/* Adicionando uma imagem dentro do retângulo oval */}
         <Image
           source={{ uri: 'https://scontent.fcpq17-1.fna.fbcdn.net/v/t39.30808-6/278627313_352688266888590_7832525614975227965_n.jpg?stp=dst-jpg_s960x960&_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wIc0fyqfUdYAX-QQht6&_nc_ht=scontent.fcpq17-1.fna&oh=00_AfB4m6o0p9jwQd_EPxEKH0zRxmdiEIBdP11mJqrScM2_qA&oe=65F7B6DA' }}
           style={styles.oval}
@@ -36,39 +47,26 @@ function HomeScreen({ navigation }) {
         <TextInput
           style={styles.searchInput}
           placeholder="Pesquise"
+          value={searchText}
+          onChangeText={text => setSearchText(text)}
         />
       </View>
 
-      <View style={styles.buttonsContainer}>
-        <Button title="Shopping ParkCity"
-          onPress={() => navigation.navigate('Screen1')}
-          style={styles.button} // Aplica o estilo do botão
-          titleStyle={styles.buttonTitle} // Aplica o estilo do texto do botão 
-        />
-        <Text style={[styles.lorem, { opacity: 0.5 }]}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-
-        <Button title="Chapéu Brasil"
-          onPress={() => navigation.navigate('Screen2')}
-          style={styles.button} // Aplica o estilo do botão
-          titleStyle={styles.buttonText} // Aplica o estilo do texto do botão
-        />
-        <Text style={[styles.lorem, { opacity: 0.5 }]}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-
-        <Button title="Jack Club Bar"
-          onPress={() => navigation.navigate('Screen3')}
-          style={styles.button} // Aplica o estilo do botão
-          titleStyle={styles.buttonText} // Aplica o estilo do texto do botão
-        />
-        <Text style={[styles.lorem, { opacity: 0.5 }]}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-
-        <Button title="Estãncia Árvore da Vida"
-          onPress={() => navigation.navigate('Screen4')}
-          style={styles.button} // Aplica o estilo do botão
-          titleStyle={styles.buttonTitle}
-        />
-        <Text style={[styles.lorem, { opacity: 0.5 }]}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-
-      </View>
+      <ScrollView style={styles.resultsContainer}>
+        {searchResults.map(screen => (
+          <View key={screen}>
+            <Button
+              title={data.titles[screen]}
+              onPress={() => navigation.navigate(screen)}
+              style={styles.button}
+              titleStyle={styles.buttonTitle}
+            />
+            <Text style={[styles.lorem, { opacity: 0.5 }]}>
+              {data.descriptions[screen]}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
